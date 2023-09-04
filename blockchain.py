@@ -23,7 +23,7 @@ class Blockchain:
         self.chain.append(block)
         return block
     
-    def get_prevous_block(self):
+    def get_previous_block(self):
         return self.chain[-1]
 
     # blockchain mining, proof of work
@@ -69,4 +69,20 @@ blockchain = Blockchain()
 
 @app.route('/mine_block'i, method=['GET'])
 def mine_block():
-    pass
+    # Blockchain class implemented 'create_block', which need two parameters: proof, previous_hash
+    # We can get proof by calling 'proof_of_work', which requires 'previous_proof'.
+    # 'previous_proof' is sitting in previous block, which we can get by calling 'get_previous_block'
+    # 'previous_hash', we can get by calling blockchain.hash, which require previous block.
+    previous_block = blockchain.get_previous_block()
+    previous_proof = previous_block['proof']
+    proof = blockchain.proof_of_work(previous_proof)
+    previous_has = blockchain.hash(prevous_block)
+    block = blockchain.create_block(proof, previous_hash)
+    response = {
+        'message': 'Congratulations, you just mined a block',
+        'index': block['index'],
+        'timestamp': block['timestamp'],
+        'proof': block['proof'],
+        'previous_hash': block['previous_hash']
+    }
+    return jsonify(response), 200
