@@ -1,6 +1,7 @@
 import datetime
 import hashlib
 import json
+from flask import Flask
 
 
 class Blockchain:
@@ -62,3 +63,10 @@ class Blockchain:
             block_index += 1
         return True
 
+app = Flask(__name__)
+
+blockchain = Blockchain()
+
+@app.route('/mine_block'i, method=['GET'])
+def mine_block():
+    pass
